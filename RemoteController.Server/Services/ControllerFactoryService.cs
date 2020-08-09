@@ -1,6 +1,8 @@
 ﻿using Grpc.Core;
 using Microsoft.Extensions.Logging;
+using Nefarius.ViGEm.Client.Targets.Xbox360;
 using RemoteController.Rpc;
+using RemoteController.Server.Managers.Xbox;
 using System;
 using System.Threading.Tasks;
 
@@ -8,19 +10,24 @@ namespace RemoteController.Server.Services
 {
     public class ControllerFactoryService : ControllerFactory.ControllerFactoryBase
     {
-        private readonly ILogger<ControllerFactoryService> _logger;
-
-        public ControllerFactoryService(ILogger<ControllerFactoryService> logger)
+        public ControllerFactoryService(
+            ILogger<ControllerFactoryService> logger,
+            XboxControllerManager xboxControllerManager)
         {
-            _logger = logger;
+            Logger = logger;
+            XboxControllerManager = xboxControllerManager;
         }
+
+        private ILogger<ControllerFactoryService> Logger { get; }
+
+        private XboxControllerManager XboxControllerManager { get; }
 
         public override Task<XboxControllerReply> CreateXboxController(XboxControllerRequest request, ServerCallContext context)
         {
-            _logger.LogDebug("Receive request");
-            return Task.FromResult(new XboxControllerReply()
+            Logger.LogDebug("Receive request");
+            return Task.FromResult(new XboxControllerReply
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = XboxControllerManager.CreateController().ToString()
             });
         }
     }
