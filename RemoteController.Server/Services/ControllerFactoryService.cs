@@ -30,5 +30,12 @@ namespace RemoteController.Server.Services
                 Id = XboxControllerManager.CreateController().ToString()
             });
         }
+
+        public override Task<XboxControllerConnectReply> ConnectXboxController(XboxControllerConnectRequest request, ServerCallContext context)
+        {
+            Logger.LogDebug("Connect controller");
+            XboxControllerManager.GetController(Guid.Parse(request.Id)).Connect();
+            return Task.FromResult(new XboxControllerConnectReply());
+        }
     }
 }
