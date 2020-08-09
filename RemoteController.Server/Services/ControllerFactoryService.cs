@@ -56,6 +56,11 @@ namespace RemoteController.Server.Services
                             Mapper.Map<Rpc.XboxMessageRequest.Types.Buttons, Xbox360Button>(request.ButtonPressed.Button),
                             pressed: true);
                         continue;
+                    case XboxMessageRequest.TypeOneofCase.ButtonReleased:
+                        controller.SetButtonState(
+                            Mapper.Map<Rpc.XboxMessageRequest.Types.Buttons, Xbox360Button>(request.ButtonPressed.Button),
+                            pressed: false);
+                        continue;
                     case XboxMessageRequest.TypeOneofCase.None:
                         continue;
                 }
