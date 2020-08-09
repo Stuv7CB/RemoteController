@@ -5,12 +5,12 @@ option csharp_namespace = "RemoteController.Rpc";
 package greet;
 
 service ControllerFactory {
-	rpc CreateXboxController (XboxControllerRequest) returns (XboxControllerReply);
+    rpc CreateXboxController (XboxControllerRequest) returns (XboxControllerReply);
 }
 
 message XboxControllerRequest {
 }
 
 message XboxControllerReply {
-	string id = 1;
+    string id = 1;
 }
