@@ -14,3 +14,23 @@ message XboxControllerRequest {
 message XboxControllerReply {
     string id = 1;
 }
+
+message XboxMessageRequest {
+    enum Buttons {
+        Up = 0;
+        Y = 1;
+        X = 2;
+        B = 3;
+        A = 4;
+        Guide = 5;
+        RightShoulder = 6;
+        LeftShoulder = 7;
+        LeftThumb = 8;
+        Back = 9;
+        Start = 10;
+        Right = 11;
+        Left = 12;
+        Down = 13;
+        RightThumb = 14;
+    }
+}
