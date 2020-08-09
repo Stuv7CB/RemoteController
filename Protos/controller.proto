@@ -6,6 +6,7 @@ package greet;
 
 service ControllerFactory {
     rpc CreateXboxController (XboxControllerRequest) returns (XboxControllerReply);
+    rpc ConnectXboxController (XboxControllerConnectRequest) returns (XboxControllerConnectReply);
 }
 
 message XboxControllerRequest {
@@ -13,6 +14,13 @@ message XboxControllerRequest {
 
 message XboxControllerReply {
     string id = 1;
+}
+
+message XboxControllerConnectRequest {
+    string id = 1;
+}
+
+message XboxControllerConnectReply {
 }
 
 message XboxMessageRequest {
