@@ -50,12 +50,17 @@ message XboxMessageRequest {
         Buttons button = 1;
     }
 
+    message Stop {
+    }
+
     string id = 1;
     oneof type {
         ButtonPressed buttonPressed = 2;
         ButtonReleased buttonReleased = 3;
+        Stop stop = 4;
     }
 }
 
 message XboxMessageReply {
 }
+
