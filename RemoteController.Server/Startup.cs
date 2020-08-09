@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Nefarius.ViGEm.Client;
+using RemoteController.Server.Managers.Xbox;
 using RemoteController.Server.Services;
+using System;
 
 namespace RemoteController.Server
 {
@@ -14,6 +18,11 @@ namespace RemoteController.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
+
+            services.AddSingleton<ViGEmClient>()
+                .AddSingleton<XboxControllerManager>();
+
+            services.AddAutoMapper(typeof(XboxProfile));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
