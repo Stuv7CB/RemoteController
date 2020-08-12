@@ -62,4 +62,3 @@ message XboxMessageRequest {
 
 message XboxMessageReply {
 }
-
