@@ -45,25 +45,45 @@ namespace RemoteController.Server.Services
 
         public override async Task StartController(IAsyncStreamReader<XboxMessageRequest> requestStream, IServerStreamWriter<XboxMessageReply> responseStream, ServerCallContext context)
         {
-            var controller = XboxControllerManager.GetController(Guid.NewGuid());
-            controller.FeedbackReceived += async (s, e) => await responseStream.WriteAsync(new XboxMessageReply());
-            await foreach (var request in requestStream.ReadAllAsync())
+            var isRunning = true;
+            var id = new Guid(context.RequestHeaders.Get("controller").Value);
+            var controller = XboxControllerManager.GetController(id);
+            controller.FeedbackReceived += async (s, e) =>
             {
-                switch (request.TypeCase)
+                if (isRunning)
                 {
-                    case XboxMessageRequest.TypeOneofCase.ButtonPressed:
-                        controller.SetButtonState(
-                            Mapper.Map<Rpc.XboxMessageRequest.Types.Buttons, Xbox360Button>(request.ButtonPressed.Button),
-                            pressed: true);
-                        continue;
-                    case XboxMessageRequest.TypeOneofCase.ButtonReleased:
-                        controller.SetButtonState(
-                            Mapper.Map<Rpc.XboxMessageRequest.Types.Buttons, Xbox360Button>(request.ButtonPressed.Button),
-                            pressed: false);
-                        continue;
-                    case XboxMessageRequest.TypeOneofCase.None:
-                        continue;
+                    await responseStream.WriteAsync(new XboxMessageReply());
                 }
+            };
+
+            async Task ProcessMessagesAsync()
+            {
+                await foreach (var request in requestStream.ReadAllAsync())
+                {
+                    switch (request.TypeCase)
+                    {
+                        case XboxMessageRequest.TypeOneofCase.ButtonPressed:
+                            controller.SetButtonState(
+                                Mapper.Map<Rpc.XboxMessageRequest.Types.Buttons, Xbox360Button>(request.ButtonPressed.Button),
+                                pressed: true);
+                            continue;
+                        case XboxMessageRequest.TypeOneofCase.ButtonReleased:
+                            controller.SetButtonState(
+                                Mapper.Map<Rpc.XboxMessageRequest.Types.Buttons, Xbox360Button>(request.ButtonPressed.Button),
+                                pressed: false);
+                            continue;
+                        case XboxMessageRequest.TypeOneofCase.Stop:
+                            isRunning = false;
+                            controller.Disconnect();
+                            return;
+                        case XboxMessageRequest.TypeOneofCase.None:
+                            continue;
+                    }
+                }
+            }
+            while (isRunning)
+            {
+                await ProcessMessagesAsync();
             }
         }
     }
