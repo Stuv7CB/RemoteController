@@ -45,8 +45,9 @@ namespace RemoteController.Server.Services
 
         public override async Task StartController(IAsyncStreamReader<XboxMessageRequest> requestStream, IServerStreamWriter<XboxMessageReply> responseStream, ServerCallContext context)
         {
-            var controller = XboxControllerManager.GetController(Guid.NewGuid());
             var isRunning = true;
+            var id = new Guid(context.RequestHeaders.Get("controller").Value);
+            var controller = XboxControllerManager.GetController(id);
             controller.FeedbackReceived += async (s, e) =>
             {
                 if (isRunning)
@@ -54,7 +55,8 @@ namespace RemoteController.Server.Services
                     await responseStream.WriteAsync(new XboxMessageReply());
                 }
             };
-            while (isRunning)
+
+            async Task ProcessMessagesAsync()
             {
                 await foreach (var request in requestStream.ReadAllAsync())
                 {
@@ -73,11 +75,15 @@ namespace RemoteController.Server.Services
                         case XboxMessageRequest.TypeOneofCase.Stop:
                             isRunning = false;
                             controller.Disconnect();
-                            break;
+                            return;
                         case XboxMessageRequest.TypeOneofCase.None:
                             continue;
                     }
                 }
+            }
+            while (isRunning)
+            {
+                await ProcessMessagesAsync();
             }
         }
     }
