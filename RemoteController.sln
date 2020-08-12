@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteController", "RemoteController\RemoteController.csproj", "{91DF2112-CC63-448D-BA67-2C1541E5D45D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteController.Server", "RemoteController.Server\RemoteController.Server.csproj", "{A01627FD-A046-4966-BBF4-0E28F4CA5492}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteController.Rpc", "RemoteController.Rpc\RemoteController.Rpc.csproj", "{32706FCF-331F-42F0-AF71-CC85215D537B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteController.Rpc", "RemoteController.Rpc\RemoteController.Rpc.csproj", "{32706FCF-331F-42F0-AF71-CC85215D537B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteController.Android", "RemoteController\RemoteController.Android\RemoteController.Android.csproj", "{32B27256-629C-4F7E-A3D3-4486E660D1EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteController", "RemoteController\RemoteController\RemoteController.csproj", "{3F11C779-1B86-4C34-BCBF-8DF2EF1D7827}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,12 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{91DF2112-CC63-448D-BA67-2C1541E5D45D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91DF2112-CC63-448D-BA67-2C1541E5D45D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{91DF2112-CC63-448D-BA67-2C1541E5D45D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{91DF2112-CC63-448D-BA67-2C1541E5D45D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{91DF2112-CC63-448D-BA67-2C1541E5D45D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{91DF2112-CC63-448D-BA67-2C1541E5D45D}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{A01627FD-A046-4966-BBF4-0E28F4CA5492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A01627FD-A046-4966-BBF4-0E28F4CA5492}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A01627FD-A046-4966-BBF4-0E28F4CA5492}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -29,6 +25,16 @@ Global
 		{32706FCF-331F-42F0-AF71-CC85215D537B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32706FCF-331F-42F0-AF71-CC85215D537B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32706FCF-331F-42F0-AF71-CC85215D537B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32B27256-629C-4F7E-A3D3-4486E660D1EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32B27256-629C-4F7E-A3D3-4486E660D1EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32B27256-629C-4F7E-A3D3-4486E660D1EB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{32B27256-629C-4F7E-A3D3-4486E660D1EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32B27256-629C-4F7E-A3D3-4486E660D1EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32B27256-629C-4F7E-A3D3-4486E660D1EB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{3F11C779-1B86-4C34-BCBF-8DF2EF1D7827}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F11C779-1B86-4C34-BCBF-8DF2EF1D7827}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F11C779-1B86-4C34-BCBF-8DF2EF1D7827}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F11C779-1B86-4C34-BCBF-8DF2EF1D7827}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
