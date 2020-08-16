@@ -1,13 +1,21 @@
-﻿using System;
+﻿using Autofac;
+using RemoteController.ViewModel.Abstractions;
+using System;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
 namespace RemoteController
 {
     public partial class App : Application
     {
-        public App()
+        private ILifetimeScope Scope { get; set; }
+
+        public App(ILifetimeScope scope)
         {
+            // Set up autofac DI
+            Scope = scope;
+            DependencyResolver.ResolveUsing(type => scope.IsRegistered(type) ? scope.Resolve(type) : null);
             InitializeComponent();
 
             MainPage = new MainPage();
